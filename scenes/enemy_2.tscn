@@ -1,0 +1,183 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://scripts/enemy_2.gd" type="Script" id=1]
+[ext_resource path="res://wad/gfx/MVD1-1.png.png" type="Texture" id=2]
+[ext_resource path="res://wad/gfx/MVD1-2.png.png" type="Texture" id=3]
+[ext_resource path="res://wad/gfx/MVD1-3.png.png" type="Texture" id=4]
+[ext_resource path="res://wad/gfx/MVD1-4.png.png" type="Texture" id=5]
+[ext_resource path="res://wad/gfx/MVF1-1.png.png" type="Texture" id=6]
+[ext_resource path="res://wad/gfx/MVF1-2.png.png" type="Texture" id=7]
+[ext_resource path="res://wad/gfx/MVF1-3.png.png" type="Texture" id=8]
+[ext_resource path="res://wad/gfx/MVE1-1.png.png" type="Texture" id=9]
+[ext_resource path="res://wad/gfx/MVE1-2.png.png" type="Texture" id=10]
+[ext_resource path="res://wad/gfx/MVE1-3.png.png" type="Texture" id=11]
+[ext_resource path="res://wad/gfx/MVE1-4.png.png" type="Texture" id=12]
+[ext_resource path="res://wad/gfx/MVC1-1.png.png" type="Texture" id=13]
+[ext_resource path="res://wad/gfx/MVC1-2.png.png" type="Texture" id=14]
+[ext_resource path="res://wad/gfx/MVC1-3.png.png" type="Texture" id=15]
+[ext_resource path="res://wad/sfx/monster_generic_bullet_hit.wav" type="AudioStream" id=16]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "walking_right",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "walking_front",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "walking_left",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ],
+"loop": true,
+"name": "walking_back",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 42.7537, 41.2964 )
+
+[sub_resource type="CircleShape2D" id=3]
+
+custom_solver_bias = 0.0
+radius = 703.6
+
+[node name="enemy_2" type="KinematicBody2D"]
+
+scale = Vector2( 1.8, 1.8 )
+input_pickable = false
+collision_layer = 8
+collision_mask = 238
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "Pickable", "Transform", "Visibility", "collision" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="enemy_2_raycast_down" type="RayCast2D" parent="." index="0"]
+
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 150 )
+collision_mask = 2
+
+[node name="enemy_2_raycast_up" type="RayCast2D" parent="." index="1"]
+
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, -150 )
+collision_mask = 2
+
+[node name="enemy_2_raycast_left" type="RayCast2D" parent="." index="2"]
+
+enabled = true
+exclude_parent = true
+cast_to = Vector2( -150, 0 )
+collision_mask = 2
+
+[node name="enemy_2_raycast_right" type="RayCast2D" parent="." index="3"]
+
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 150, 0 )
+collision_mask = 2
+
+[node name="enemy_2_sprite" type="AnimatedSprite" parent="." index="4"]
+
+frames = SubResource( 1 )
+animation = "walking_front"
+frame = 2
+playing = true
+_sections_unfolded = [ "Material", "Transform", "Visibility" ]
+
+[node name="enemy_2_collision" type="CollisionPolygon2D" parent="." index="5"]
+
+visible = false
+rotation = 4.71239
+build_mode = 0
+polygon = PoolVector2Array( -19.1919, -36.3185, 6.16731, -29.491, 33.5012, -18.2816, 33.3021, 19.7578, -5.53687, 30.4932, -20.1672, 36.3453, -43.088, 5.13403 )
+_sections_unfolded = [ "Material", "Transform", "Visibility", "Z Index" ]
+
+[node name="enemy_2_hit" type="Area2D" parent="." index="6"]
+
+editor/display_folded = true
+visible = false
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 8
+collision_mask = 68
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="enemy_2_collision" type="CollisionShape2D" parent="enemy_2_hit" index="0"]
+
+modulate = Color( 0.976563, 0.961602, 0.0190735, 1 )
+position = Vector2( -0.556324, 0.0163765 )
+shape = SubResource( 2 )
+_sections_unfolded = [ "Visibility", "Z Index" ]
+
+[node name="fov_enemy_2" type="Area2D" parent="." index="7"]
+
+visible = false
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_mask = 4
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="fov_collision_enemy_2" type="CollisionShape2D" parent="fov_enemy_2" index="0"]
+
+visible = false
+shape = SubResource( 3 )
+
+[node name="enemy_2_notifier" type="VisibilityNotifier2D" parent="." index="8"]
+
+visible = false
+position = Vector2( 0.0184908, 0.171218 )
+scale = Vector2( 3.30579, 3.2939 )
+rect = Rect2( -10, -10, 20, 20 )
+
+[node name="entered_2" type="VisibilityNotifier2D" parent="." index="9"]
+
+rect = Rect2( -10, -10, 20, 20 )
+
+[node name="monster_hit" type="AudioStreamPlayer2D" parent="." index="10"]
+
+stream = ExtResource( 16 )
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+max_distance = 2000.0
+attenuation = 1.0
+bus = "Master"
+area_mask = 1
+
+[connection signal="area_entered" from="enemy_2_hit" to="." method="_on_enemy_2_hit_area_entered"]
+
+[connection signal="body_entered" from="fov_enemy_2" to="." method="_on_fov_enemy_2_body_entered"]
+
+[connection signal="body_exited" from="fov_enemy_2" to="." method="_on_fov_enemy_2_body_exited"]
+
+[connection signal="screen_entered" from="enemy_2_notifier" to="." method="_on_enemy_2_notifier_screen_entered"]
+
+[connection signal="screen_entered" from="entered_2" to="." method="_on_entered_2_screen_entered"]
+
+

@@ -1,0 +1,117 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://scripts/enemy_5_fire_right.gd" type="Script" id=1]
+[ext_resource path="res://wad/gfx/Explosion 2 clone-1.png.png" type="Texture" id=2]
+[ext_resource path="res://wad/gfx/Explosion 2 clone-2.png.png" type="Texture" id=3]
+[ext_resource path="res://wad/gfx/Explosion 2 clone-3.png.png" type="Texture" id=4]
+[ext_resource path="res://wad/gfx/Explosion 2 clone-4.png.png" type="Texture" id=5]
+[ext_resource path="res://wad/gfx/Explosion 2 clone-5.png.png" type="Texture" id=6]
+[ext_resource path="res://wad/gfx/Explosion 2 clone-6.png.png" type="Texture" id=7]
+[ext_resource path="res://wad/gfx/gosma verde clone-1.png.png" type="Texture" id=8]
+[ext_resource path="res://wad/gfx/gosma verde clone-2.png.png" type="Texture" id=9]
+[ext_resource path="res://wad/gfx/gosma verde clone-3.png.png" type="Texture" id=10]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 16.8467, 15.8372 )
+
+[sub_resource type="SpriteFrames" id=4]
+
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=3]
+
+animations = [ {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "default",
+"speed": 2.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 18.1693, 17.0653 )
+
+[node name="enemy_5_fire_right" type="RigidBody2D"]
+
+input_pickable = false
+collision_layer = 1280
+collision_mask = 1126
+mode = 0
+mass = 1.0
+friction = 1.0
+bounce = 0.0
+gravity_scale = 0.0
+custom_integrator = false
+continuous_cd = 1
+contacts_reported = 1
+contact_monitor = true
+sleeping = false
+can_sleep = true
+linear_velocity = Vector2( 0, 0 )
+linear_damp = -1.0
+angular_velocity = 0.0
+angular_damp = -1.0
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision" ]
+
+[node name="enemy_5_fire_right_collision" type="CollisionShape2D" parent="." index="0"]
+
+shape = SubResource( 1 )
+
+[node name="enemy_5_fire_right_destroyed" type="AnimatedSprite" parent="." index="1"]
+
+modulate = Color( 0.34902, 0, 0.0470588, 1 )
+frames = SubResource( 4 )
+animation = "default"
+_sections_unfolded = [ "Visibility" ]
+
+[node name="enemy_5_fire_right_sprite" type="AnimatedSprite" parent="." index="2"]
+
+modulate = Color( 0.964706, 0, 0.133333, 1 )
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 3 )
+animation = "default"
+playing = true
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="timer_shoot_enemy_5_right" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 5.0
+one_shot = false
+autostart = true
+
+[node name="enemy_5_fire_area_hit" type="Area2D" parent="." index="4"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 9
+collision_mask = 64
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="collision_area_hit" type="CollisionShape2D" parent="enemy_5_fire_area_hit" index="0"]
+
+shape = SubResource( 2 )
+
+[connection signal="body_entered" from="." to="." method="_on_enemy_5_fire_right_body_entered"]
+
+[connection signal="animation_finished" from="enemy_5_fire_right_destroyed" to="." method="_on_enemy_5_fire_right_destroyed_animation_finished"]
+
+[connection signal="timeout" from="timer_shoot_enemy_5_right" to="." method="_on_timer_shoot_enemy_5_right_timeout"]
+
+[connection signal="area_entered" from="enemy_5_fire_area_hit" to="." method="_on_enemy_5_fire_area_hit_area_entered"]
+
+

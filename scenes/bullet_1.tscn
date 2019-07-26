@@ -1,0 +1,102 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://scripts/bullet_1.gd" type="Script" id=1]
+[ext_resource path="res://wad/gfx/pedra clone-1.png.png" type="Texture" id=2]
+[ext_resource path="res://wad/gfx/pedra clone-2.png.png" type="Texture" id=3]
+[ext_resource path="res://wad/gfx/pedra clone-3.png.png" type="Texture" id=4]
+[ext_resource path="res://wad/gfx/pedra clone-4.png.png" type="Texture" id=5]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "default",
+"speed": 4.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 3.11656, 2.92427 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 3.36407, 3.34536 )
+
+[node name="bullet_1" type="RigidBody2D"]
+
+editor/display_folded = true
+position = Vector2( 0.0275841, 0.0275836 )
+input_pickable = false
+collision_layer = 64
+collision_mask = 122
+mode = 0
+mass = 1.02041e-005
+friction = 1.0
+bounce = 0.0
+gravity_scale = 0.0
+custom_integrator = false
+continuous_cd = 1
+contacts_reported = 1
+contact_monitor = true
+sleeping = false
+can_sleep = true
+linear_velocity = Vector2( 0, 0 )
+linear_damp = -1.0
+angular_velocity = 0.0
+angular_damp = -1.0
+script = ExtResource( 1 )
+_sections_unfolded = [ "Angular", "Applied Forces", "Collision", "Linear" ]
+__meta__ = {
+"_edit_group_": true
+}
+speed = 1500
+
+[node name="bullet_1_Sprite" type="AnimatedSprite" parent="." index="0"]
+
+scale = Vector2( 0.1, 0.1 )
+frames = SubResource( 1 )
+animation = "default"
+frame = 2
+playing = true
+_sections_unfolded = [ "Animation", "Offset", "Transform" ]
+
+[node name="bullet_1_Collision" type="CollisionShape2D" parent="." index="1"]
+
+shape = SubResource( 2 )
+_sections_unfolded = [ "Material", "Transform", "Visibility", "Z Index" ]
+
+[node name="bullet_1_hit" type="Area2D" parent="." index="2"]
+
+editor/display_folded = true
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 100.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 65
+collision_mask = 111
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="bullet_1_collision" type="CollisionShape2D" parent="bullet_1_hit" index="0"]
+
+modulate = Color( 0.808594, 0.797983, 0.129501, 1 )
+shape = SubResource( 3 )
+_sections_unfolded = [ "Visibility" ]
+
+[node name="bullet_1_timer" type="Timer" parent="." index="3"]
+
+process_mode = 1
+wait_time = 0.85
+one_shot = false
+autostart = true
+
+[connection signal="area_entered" from="bullet_1_hit" to="." method="_on_bullet_1_hit_area_entered"]
+
+[connection signal="timeout" from="bullet_1_timer" to="." method="_on_bullet_1_timer_timeout"]
+
+

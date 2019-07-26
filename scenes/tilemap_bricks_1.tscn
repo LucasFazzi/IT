@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scripts/tilemap_bricks_1.gd" type="Script" id=1]
+[ext_resource path="res://wad/gfx/tiles/bricks_2.png" type="Texture" id=2]
+[ext_resource path="res://wad/gfx/tiles/bricks_1.png" type="Texture" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 31.4009, 31.2498 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 30.6209, 32.0894 )
+
+[node name="tilemap_walls_1" type="Node2D"]
+
+script = ExtResource( 1 )
+_sections_unfolded = [ "Material", "Transform", "Visibility", "Z Index" ]
+
+[node name="walls_sprite_1" type="Sprite" parent="." index="0"]
+
+visible = false
+texture = ExtResource( 2 )
+
+[node name="walls_body_1" type="StaticBody2D" parent="walls_sprite_1" index="0"]
+
+visible = false
+input_pickable = false
+collision_layer = 2
+collision_mask = 2046
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Collision" ]
+
+[node name="collision_walls_1" type="CollisionShape2D" parent="walls_sprite_1/walls_body_1" index="0"]
+
+visible = false
+position = Vector2( 0, 1 )
+shape = SubResource( 1 )
+
+[node name="walls_sprite_2" type="Sprite" parent="." index="1"]
+
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Animation", "Offset", "Region", "Transform", "Z Index" ]
+
+[node name="walls_body_2" type="StaticBody2D" parent="walls_sprite_2" index="0"]
+
+input_pickable = false
+collision_layer = 2
+collision_mask = 2046
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+_sections_unfolded = [ "Collision" ]
+
+[node name="collision_walls_2" type="CollisionShape2D" parent="walls_sprite_2/walls_body_2" index="0"]
+
+position = Vector2( -1.23866, 0.0720024 )
+shape = SubResource( 2 )
+
+

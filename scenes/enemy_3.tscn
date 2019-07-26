@@ -1,0 +1,168 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://scripts/enemy_3.gd" type="Script" id=1]
+[ext_resource path="res://wad/gfx/MAD1_2 clone-1.png.png" type="Texture" id=2]
+[ext_resource path="res://wad/gfx/MAD1_2 clone-2.png.png" type="Texture" id=3]
+[ext_resource path="res://wad/gfx/MAD1_2 clone-3.png.png" type="Texture" id=4]
+[ext_resource path="res://wad/gfx/MAF1 clone-1.png.png" type="Texture" id=5]
+[ext_resource path="res://wad/gfx/MAF1 clone-2.png.png" type="Texture" id=6]
+[ext_resource path="res://wad/gfx/MAF1 clone-3.png.png" type="Texture" id=7]
+[ext_resource path="res://wad/gfx/MAF1 clone-4.png.png" type="Texture" id=8]
+[ext_resource path="res://wad/gfx/MAE1 clone-1.png.png" type="Texture" id=9]
+[ext_resource path="res://wad/gfx/MAE1 clone-2.png.png" type="Texture" id=10]
+[ext_resource path="res://wad/gfx/MAE1 clone-3.png.png" type="Texture" id=11]
+[ext_resource path="res://wad/gfx/MAC1-1.png.png" type="Texture" id=12]
+[ext_resource path="res://wad/gfx/MAC1-2.png.png" type="Texture" id=13]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "walking_right",
+"speed": 2.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"loop": true,
+"name": "walking_front",
+"speed": 2.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "walking_left",
+"speed": 2.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "walking_back",
+"speed": 2.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 40.2886, 38.5201 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 43.9779, 41.9459 )
+
+[sub_resource type="RectangleShape2D" id=4]
+
+custom_solver_bias = 0.0
+extents = Vector2( 306.955, 279.415 )
+
+[node name="enemy_3" type="KinematicBody2D"]
+
+scale = Vector2( 1.3, 1.3 )
+input_pickable = false
+collision_layer = 8
+collision_mask = 238
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "Transform", "collision" ]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="enemy_3_raycast_down" type="RayCast2D" parent="." index="0"]
+
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 120 )
+collision_mask = 1
+
+[node name="enemy_3_raycast_up" type="RayCast2D" parent="." index="1"]
+
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, -120 )
+collision_mask = 1
+
+[node name="enemy_3_raycast_left" type="RayCast2D" parent="." index="2"]
+
+enabled = true
+exclude_parent = true
+cast_to = Vector2( -100, 0 )
+collision_mask = 1
+
+[node name="enemy_3_raycast_right" type="RayCast2D" parent="." index="3"]
+
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 100, 0 )
+collision_mask = 1
+
+[node name="enemy_3_sprite" type="AnimatedSprite" parent="." index="4"]
+
+scale = Vector2( 1.2, 1.2 )
+frames = SubResource( 1 )
+animation = "walking_front"
+frame = 1
+playing = true
+_sections_unfolded = [ "Animation", "Offset", "Region", "Transform", "Visibility" ]
+
+[node name="enemy_3_collision" type="CollisionShape2D" parent="." index="5"]
+
+visible = false
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="enemy_3_hit" type="Area2D" parent="." index="6"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 8
+collision_mask = 110
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="enemy_3_collision_hit" type="CollisionShape2D" parent="enemy_3_hit" index="0"]
+
+visible = false
+shape = SubResource( 3 )
+
+[node name="enemy_3_fov" type="Area2D" parent="." index="7"]
+
+visible = false
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_mask = 4
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="enemy_3_collision_fov" type="CollisionShape2D" parent="enemy_3_fov" index="0"]
+
+visible = false
+shape = SubResource( 4 )
+
+[node name="enemy_3_notifier" type="VisibilityNotifier2D" parent="." index="8"]
+
+visible = false
+rect = Rect2( -10, -10, 20, 20 )
+
+[node name="entered_screen" type="VisibilityNotifier2D" parent="." index="9"]
+
+visible = false
+rect = Rect2( -10, -10, 20, 20 )
+
+[connection signal="area_entered" from="enemy_3_hit" to="." method="_on_enemy_3_hit_area_entered"]
+
+[connection signal="body_entered" from="enemy_3_fov" to="." method="_on_enemy_3_fov_body_entered"]
+
+[connection signal="body_exited" from="enemy_3_fov" to="." method="_on_enemy_3_fov_body_exited"]
+
+[connection signal="screen_entered" from="enemy_3_notifier" to="." method="_on_enemy_3_notifier_screen_entered"]
+
+[connection signal="screen_entered" from="entered_screen" to="." method="_on_entered_screen_screen_entered"]
+
+

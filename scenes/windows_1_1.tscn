@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://wad/gfx/janela clone-1.png.png" type="Texture" id=1]
+
+[node name="windows_1_1" type="Node2D"]
+
+[node name="window_sprite" type="Sprite" parent="." index="0"]
+
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
+
+

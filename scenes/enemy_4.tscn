@@ -1,0 +1,173 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://scripts/enemy_4.gd" type="Script" id=1]
+[ext_resource path="res://wad/gfx/MRD-1.png.png" type="Texture" id=2]
+[ext_resource path="res://wad/gfx/MRD-2.png.png" type="Texture" id=3]
+[ext_resource path="res://wad/gfx/MRF_PARADO-1.png.png" type="Texture" id=4]
+[ext_resource path="res://wad/gfx/MRF_PARADO-2.png.png" type="Texture" id=5]
+[ext_resource path="res://wad/gfx/MRE-1.png.png" type="Texture" id=6]
+[ext_resource path="res://wad/gfx/MRE-2.png.png" type="Texture" id=7]
+[ext_resource path="res://wad/gfx/MRC_ANDANDO1-1.png.png" type="Texture" id=8]
+[ext_resource path="res://wad/gfx/MRC_ANDANDO1-2.png.png" type="Texture" id=9]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "walking_right",
+"speed": 3.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "walking_front",
+"speed": 3.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "walking_left",
+"speed": 3.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "walking_back",
+"speed": 3.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 464.865
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 38.1185, 36.6977 )
+
+[sub_resource type="RectangleShape2D" id=4]
+
+custom_solver_bias = 0.0
+extents = Vector2( 42.5983, 41.441 )
+
+[node name="enemy_4" type="KinematicBody2D"]
+
+rotation = 1.5708
+scale = Vector2( 1.2, 1.2 )
+input_pickable = false
+collision_layer = 8
+collision_mask = 238
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "Transform" ]
+
+[node name="enemy_4_raycast_down" type="RayCast2D" parent="." index="0"]
+
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 100, 0 )
+collision_mask = 1
+
+[node name="enemy_4_raycast_up" type="RayCast2D" parent="." index="1"]
+
+enabled = true
+exclude_parent = true
+cast_to = Vector2( -100, 0 )
+collision_mask = 1
+
+[node name="enemy_4_raycast_left" type="RayCast2D" parent="." index="2"]
+
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 100 )
+collision_mask = 1
+
+[node name="enemy_4_raycast_right" type="RayCast2D" parent="." index="3"]
+
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, -100 )
+collision_mask = 1
+
+[node name="enemy_4_sprite" type="AnimatedSprite" parent="." index="4"]
+
+position = Vector2( 0.157784, 0.576342 )
+rotation = 4.71239
+frames = SubResource( 1 )
+animation = "walking_front"
+playing = true
+_sections_unfolded = [ "Region", "Transform", "Visibility" ]
+
+[node name="enemy_4_collision" type="CollisionPolygon2D" parent="." index="5"]
+
+visible = false
+position = Vector2( 0, 1.05408 )
+build_mode = 0
+polygon = PoolVector2Array( -29.8695, -19.0419, -16.1665, -28.5286, 9.65839, -32.2178, 29.1588, -30.9002, 34.9562, -22.9946, 33.1116, 32.0809, -5.62573, 32.8715, -29.8695, 32.6079, -34.0858, 13.371 )
+
+[node name="enemy_4_fov" type="Area2D" parent="." index="6"]
+
+visible = false
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_mask = 4
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Audio Bus", "Collision" ]
+
+[node name="enemy_4_fov_collision" type="CollisionShape2D" parent="enemy_4_fov" index="0"]
+
+visible = false
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="enemy_4_hit" type="Area2D" parent="." index="7"]
+
+editor/display_folded = true
+visible = false
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 8
+collision_mask = 110
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="enemy_4_collision_hit" type="CollisionShape2D" parent="enemy_4_hit" index="0"]
+
+position = Vector2( 0, 1.05408 )
+shape = SubResource( 3 )
+
+[node name="enemy_4_area_entered_player_position" type="Area2D" parent="." index="8"]
+
+visible = false
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 8
+collision_mask = 4
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="enemy_4_area_entered_player_position_collision" type="CollisionShape2D" parent="enemy_4_area_entered_player_position" index="0"]
+
+position = Vector2( 0, 1.05408 )
+shape = SubResource( 4 )
+
+[connection signal="body_entered" from="enemy_4_fov" to="." method="_on_enemy_4_fov_body_entered"]
+
+[connection signal="body_exited" from="enemy_4_fov" to="." method="_on_enemy_4_fov_body_exited"]
+
+[connection signal="area_entered" from="enemy_4_hit" to="." method="_on_enemy_4_hit_area_entered"]
+
+[connection signal="area_entered" from="enemy_4_area_entered_player_position" to="." method="_on_enemy_4_area_entered_player_position_area_entered"]
+
+

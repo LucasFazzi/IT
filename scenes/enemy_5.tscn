@@ -1,0 +1,175 @@
+[gd_scene load_steps=23 format=2]
+
+[ext_resource path="res://scripts/enemy_5.gd" type="Script" id=1]
+[ext_resource path="res://wad/gfx/MAZD1 clone-1.png.png" type="Texture" id=2]
+[ext_resource path="res://wad/gfx/MAZD1 clone-2.png.png" type="Texture" id=3]
+[ext_resource path="res://wad/gfx/MAZD1 clone-3.png.png" type="Texture" id=4]
+[ext_resource path="res://wad/gfx/MAZD1 clone-4.png.png" type="Texture" id=5]
+[ext_resource path="res://wad/gfx/MAZD1 clone-5.png.png" type="Texture" id=6]
+[ext_resource path="res://wad/gfx/MAZD1 clone-6.png.png" type="Texture" id=7]
+[ext_resource path="res://wad/gfx/MAZD1 clone-7.png.png" type="Texture" id=8]
+[ext_resource path="res://wad/gfx/MAZD1 clone-8.png.png" type="Texture" id=9]
+[ext_resource path="res://wad/gfx/MAZF1 clone-1.png.png" type="Texture" id=10]
+[ext_resource path="res://wad/gfx/MAZF1 clone-2.png.png" type="Texture" id=11]
+[ext_resource path="res://wad/gfx/MAZF1 clone-3.png.png" type="Texture" id=12]
+[ext_resource path="res://wad/gfx/MAZE1 clone-1.png.png" type="Texture" id=13]
+[ext_resource path="res://wad/gfx/MAZE1 clone-2.png.png" type="Texture" id=14]
+[ext_resource path="res://wad/gfx/MAZE1 clone-3.png.png" type="Texture" id=15]
+[ext_resource path="res://wad/gfx/MAZE1 clone-4.png.png" type="Texture" id=16]
+[ext_resource path="res://wad/gfx/MAZE1 clone-5.png.png" type="Texture" id=17]
+[ext_resource path="res://wad/gfx/MAZC1 clone-1.png.png" type="Texture" id=18]
+[ext_resource path="res://wad/gfx/MAZC1 clone-2.png.png" type="Texture" id=19]
+
+[sub_resource type="SpriteFrames" id=1]
+
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "walking_right",
+"speed": 2.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "walking_front",
+"speed": 2.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ) ],
+"loop": true,
+"name": "walking_left",
+"speed": 2.0
+}, {
+"frames": [ ExtResource( 18 ), ExtResource( 19 ) ],
+"loop": true,
+"name": "walking_back",
+"speed": 2.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 82.7273, 80.6079 )
+
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 37.8755, 37.436 )
+
+[node name="enemy_5" type="KinematicBody2D"]
+
+scale = Vector2( 1.8, 1.8 )
+input_pickable = false
+collision_layer = 8
+collision_mask = 108
+collision/safe_margin = 0.08
+script = ExtResource( 1 )
+_sections_unfolded = [ "Collision", "Pickable", "Transform", "Visibility", "Z Index", "collision" ]
+
+[node name="enemy_5_raycast_up" type="RayCast2D" parent="." index="0"]
+
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, -100 )
+collision_mask = 2
+
+[node name="enemy_5_raycast_down" type="RayCast2D" parent="." index="1"]
+
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 100 )
+collision_mask = 2
+
+[node name="enemy_5_raycast_left" type="RayCast2D" parent="." index="2"]
+
+enabled = true
+exclude_parent = true
+cast_to = Vector2( -100, 0 )
+collision_mask = 2
+
+[node name="enemy_5_raycast_right" type="RayCast2D" parent="." index="3"]
+
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 100, 0 )
+collision_mask = 2
+
+[node name="enemy_5_collision" type="CollisionPolygon2D" parent="." index="4"]
+
+build_mode = 0
+polygon = PoolVector2Array( -17.3376, -32.4933, -36.6005, 17.9802, -11.4856, 35.5362, 13.873, 35.78, 36.0619, 17.2487, 18.262, -35.907, -15.6308, -36.3947 )
+
+[node name="enemy_5_sprite" type="AnimatedSprite" parent="." index="5"]
+
+frames = SubResource( 1 )
+animation = "walking_front"
+playing = true
+_sections_unfolded = [ "Animation", "Transform" ]
+
+[node name="fov_enemy_5" type="Area2D" parent="." index="6"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_mask = 4
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Audio Bus", "Collision" ]
+
+[node name="fov_enemy_5_collision" type="CollisionShape2D" parent="fov_enemy_5" index="0"]
+
+visible = false
+rotation = 0.785398
+scale = Vector2( 4, 4 )
+shape = SubResource( 2 )
+_sections_unfolded = [ "Transform" ]
+
+[node name="enemy_5_hit" type="Area2D" parent="." index="7"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+collision_layer = 8
+collision_mask = 68
+audio_bus_override = false
+audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
+
+[node name="enemy_5_hit_collision" type="CollisionShape2D" parent="enemy_5_hit" index="0"]
+
+visible = false
+shape = SubResource( 3 )
+
+[node name="enemy_5_notifier" type="VisibilityNotifier2D" parent="." index="8"]
+
+visible = false
+position = Vector2( -0.367538, -0.735077 )
+rect = Rect2( -10, -10, 20, 20 )
+
+[node name="positon_up" type="Position2D" parent="." index="9"]
+
+position = Vector2( 0, -52.1277 )
+
+[node name="position_down" type="Position2D" parent="." index="10"]
+
+position = Vector2( 0, 50.0914 )
+
+[node name="position_left" type="Position2D" parent="." index="11"]
+
+position = Vector2( -48.8697, 0 )
+
+[node name="position_right" type="Position2D" parent="." index="12"]
+
+position = Vector2( 49.2769, -0.407248 )
+
+[connection signal="body_entered" from="fov_enemy_5" to="." method="_on_fov_enemy_5_body_entered"]
+
+[connection signal="body_exited" from="fov_enemy_5" to="." method="_on_fov_enemy_5_body_exited"]
+
+[connection signal="area_entered" from="enemy_5_hit" to="." method="_on_enemy_5_hit_area_entered"]
+
+[connection signal="screen_entered" from="enemy_5_notifier" to="." method="_on_enemy_5_notifier_screen_entered"]
+
+

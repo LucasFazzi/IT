@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/shot_1_correct.wav-1194cbe572715be3bef39d219a870cc0.sample"
+
+[deps]
+
+source_file="res://wad/sfx/shot_1_correct.wav"
+dest_files=[ "res://.import/shot_1_correct.wav-1194cbe572715be3bef39d219a870cc0.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

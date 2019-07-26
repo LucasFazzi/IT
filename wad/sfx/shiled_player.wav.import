@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/shiled_player.wav-0f4da535368d18151fab70eb9cd5d2ff.sample"
+
+[deps]
+
+source_file="res://wad/sfx/shiled_player.wav"
+dest_files=[ "res://.import/shiled_player.wav-0f4da535368d18151fab70eb9cd5d2ff.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
